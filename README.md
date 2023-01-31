@@ -9,11 +9,6 @@ Browser to the files inside your app build for TomatoPHP
 ```bash
 composer require tomatophp/tomato-browser
 ```
-after install run this command
-
-```bash
-php artisan tomato-browser:install
-```
 
 ## Support
 
