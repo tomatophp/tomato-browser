@@ -1,0 +1,43 @@
+{
+    "name": "tomatophp/tomato-browser",
+    "type": "library",
+    "description": "Browser to the files inside your app build for TomatoPHP",
+    "keywords": [
+        "php",
+        "laravel",
+        "template",
+        "browser",
+        "file",
+        "folders",
+        "files",
+        "upload"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "TomatoPHP\\TomatoBrowser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TomatoPHP\\TomatoBrowser\\TomatoBrowserServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Fady Mondy",
+            "email": "info@3x1.io"
+        }
+    ],
+    "require": {
+        "php": "^8.0.2",
+        "tomatophp/console-helpers": "^1.0"
+    }
+}
