@@ -22,7 +22,7 @@ class TomatoBrowserServiceProvider extends ServiceProvider
         //Publish Config
         $this->publishes([
            __DIR__.'/../config/tomato-browser.php' => config_path('tomato-browser.php'),
-        ], 'config');
+        ], 'tomato-browser-config');
 
         //Register views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'tomato-browser');
@@ -30,15 +30,15 @@ class TomatoBrowserServiceProvider extends ServiceProvider
         //Publish Views
         $this->publishes([
            __DIR__.'/../resources/views' => resource_path('views/vendor/tomato-browser'),
-        ], 'views');
+        ], 'tomato-browser-views');
 
         //Register Langs
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'tomato-browser');
 
         //Publish Lang
         $this->publishes([
-           __DIR__.'/../resources/lang' => resource_path('lang/vendor/tomato-browser'),
-        ], 'lang');
+           __DIR__.'/../resources/lang' => app_path('lang/vendor/tomato-browser'),
+        ], 'tomato-browser-lang');
 
         //Register Routes
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');

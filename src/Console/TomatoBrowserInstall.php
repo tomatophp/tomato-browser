@@ -39,7 +39,6 @@ class TomatoBrowserInstall extends Command
         $this->info('Publish Vendor Assets');
         $this->artisanCommand(["tomato-components:install"]);
         $this->callSilent('optimize:clear');
-        $this->call('vendor:publish', ['--provider' => 'TomatoPHP\TomatoBrowser\TomatoBrowserServiceProvider']);
         $this->yarnCommand(['install']);
         $this->yarnCommand(['build']);
         $this->artisanCommand(["migrate"]);
