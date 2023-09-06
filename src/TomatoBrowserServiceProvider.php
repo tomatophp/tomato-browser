@@ -3,8 +3,8 @@
 namespace TomatoPHP\TomatoBrowser;
 
 use Illuminate\Support\ServiceProvider;
-use TomatoPHP\TomatoBrowser\Menus\BrowserMenu;
-use TomatoPHP\TomatoPHP\Services\Menu\TomatoMenuRegister;
+use TomatoPHP\TomatoAdmin\Facade\TomatoMenu;
+use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
 
 
 class TomatoBrowserServiceProvider extends ServiceProvider
@@ -43,12 +43,16 @@ class TomatoBrowserServiceProvider extends ServiceProvider
         //Register Routes
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
-        TomatoMenuRegister::registerMenu(BrowserMenu::class);
-
     }
 
     public function boot(): void
     {
-        //you boot methods here
+        TomatoMenu::register([
+            Menu::make()
+                ->group(trans('tomato-browser::global.group'))
+                ->label(trans('tomato-browser::global.title'))
+                ->icon("bx bxs-folder")
+                ->route("admin.browser.index"),
+        ]);
     }
 }

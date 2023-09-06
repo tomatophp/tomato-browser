@@ -1,60 +1,59 @@
 <x-tomato-admin-layout>
-    <x-slot name="header">
+    <x-slot:header>
         File Browser
-    </x-slot>
-    <x-slot name="headerBody">
-        <div class="flex justify-start">
-            <x-splade-link
+    </x-slot:header>
+    <x-slot:buttons>
+        <div class="flex justify-start gap-2">
+            <x-tomato-admin-button
                 method="POST"
                 :data="[
                 'filePath'=> $current_path
               ]"
                 href="{{route('admin.browser.upload')}}"
-                class="mx-2 inline-flex items-center justify-center gap-2 px-4 font-medium tracking-tight text-white transition rounded-lg shadow focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 focus:ring-white">
-                Upload File
-            </x-splade-link>
+            >
+                {{__('Upload File')}}
+            </x-tomato-admin-button>
             <x-tomato-logout />
         </div>
-    </x-slot>
+    </x-slot:buttons>
 
     <x-splade-data default="{
 
     }">
         <div class="flex justify-start space-x-2">
-            <Link
+            <x-tomato-admin-button
+                title="{{__('Home')}}"
+                type="icon"
                 href="{{route('admin.browser.index')}}"
-                class="inline-flex items-center justify-center gap-2 px-4 font-medium tracking-tight text-white transition rounded-lg shadow focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 focus:ring-white"
             >
-                <i class="bx bx-home"></i>
-                Home
-            </Link>
-            @if(isset($history) && url()->current() !== route('admin.browser.index'))
-                <x-splade-form action="{{route('admin.browser.index')}}" method="POST" :default="[
-                    'folder_path'=> $history['back_path'],
-                    'folder_name'=> $history['back_name'],
-                    'type'=>'back',
-                ]">
-                    <button
-                        type="submit"
-                        class="inline-flex items-center justify-center gap-2 px-4 font-medium tracking-tight text-white transition rounded-lg shadow focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 focus:ring-white"
-                    >
-                    <i class="bx bx-arrow-back"></i>
-                        Back
-                    </button>
-                </x-splade-form>
+                <x-heroicon-s-home class="w-6 h-6" />
+            </x-tomato-admin-button>
+            @if(isset($history) && $history['back_path'] !== base_path())
+                <x-tomato-admin-button
+                    warning
+                    type="icon"
+                    href="{{route('admin.browser.index')}}"
+                    method="POST"
+                    :data="[
+                        'folder_path'=> $history['back_path'],
+                        'folder_name'=> $history['back_name'],
+                        'type'=>'back',
+                    ]">
+                    <x-heroicon-s-arrow-left class="w-6 h-6" />
+                </x-tomato-admin-button>
             @endif
             @if(isset($path) && isset($ex) && $ex)
-                <x-splade-form confirm action="{{route('admin.browser.destroy')}}" method="DELETE" :default="[
-                    'path'=>$path,
-                ]">
-                    <button
-                        type="submit"
-                        class="inline-flex items-center justify-center gap-2 px-4 font-medium tracking-tight text-white transition rounded-lg shadow focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-red-600 hover:bg-red-500 focus:bg-red-700 focus:ring-offset-red-700 h-9 focus:ring-white"
-                    >
-                        <i class="bx bx-trash"></i>
-                        Delete
-                    </button>
-                </x-splade-form>
+                <x-tomato-admin-button
+                    title="{{__('Delete File')}}"
+                    danger
+                    type="icon"
+                    confirm href="{{route('admin.browser.destroy')}}" method="DELETE" :data="[
+                        'path'=>$path,
+                    ]"
+
+                >
+                    <x-heroicon-s-trash class="w-6 h-6" />
+                </x-tomato-admin-button>
             @endif
         </div>
         @if(isset($file) && $file)
@@ -80,14 +79,10 @@
                 ]">
                     <x-splade-input name="path" type="hidden" />
                     <x-splade-input name="type" type="hidden" />
-                    <x-tomato-code name="content" ex="txt" />
+                    <x-tomato-admin-code name="content" ex="txt" />
                     <br />
-                    <button
-                        type="submit"
-                        class="inline-flex items-center justify-center px-4 font-medium tracking-tight text-white transition rounded-lg shadow focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 h-9 focus:ring-white"
-                    >
-                        Save
-                    </button>
+
+                    <x-tomato-admin-button type="button" label="{{__('Save')}}"/>
                 </x-splade-form>
             </div>
             @endif
