@@ -1,6 +1,6 @@
 <x-tomato-admin-layout>
     <x-slot:header>
-        File Browser
+        {{ trans('tomato-browser::global.title') }}
     </x-slot:header>
     <x-slot:buttons>
         <div class="flex justify-start gap-2">
@@ -11,22 +11,27 @@
               ]"
                 href="{{route('admin.browser.upload')}}"
             >
-                {{__('Upload File')}}
+                {{trans('tomato-browser::global.upload')}}
             </x-tomato-admin-button>
             <x-tomato-logout />
         </div>
     </x-slot:buttons>
+    <x-slot:icon>
+        bx bxs-folder
+    </x-slot:icon>
 
     <x-splade-data default="{
 
     }">
-        <div class="flex justify-start space-x-2">
+        <div class="flex justify-start gap-2">
             <x-tomato-admin-button
                 title="{{__('Home')}}"
                 type="icon"
                 href="{{route('admin.browser.index')}}"
             >
-                <x-heroicon-s-home class="w-6 h-6" />
+                <x-tomato-admin-tooltip text="{{__('Home')}}">
+                    <x-heroicon-s-home class="w-6 h-6" />
+                </x-tomato-admin-tooltip>
             </x-tomato-admin-button>
             @if(isset($history) && $history['back_path'] !== base_path())
                 <x-tomato-admin-button
@@ -39,7 +44,9 @@
                         'folder_name'=> $history['back_name'],
                         'type'=>'back',
                     ]">
-                    <x-heroicon-s-arrow-left class="w-6 h-6" />
+                    <x-tomato-admin-tooltip text="{{ __('Back') }}">
+                        <x-heroicon-s-arrow-left class="w-6 h-6" />
+                    </x-tomato-admin-tooltip>
                 </x-tomato-admin-button>
             @endif
             @if(isset($path) && isset($ex) && $ex)
@@ -47,12 +54,14 @@
                     title="{{__('Delete File')}}"
                     danger
                     type="icon"
-                    confirm href="{{route('admin.browser.destroy')}}" method="DELETE" :data="[
+                    confirm-danger href="{{route('admin.browser.destroy')}}" method="DELETE" :data="[
                         'path'=>$path,
                     ]"
 
                 >
-                    <x-heroicon-s-trash class="w-6 h-6" />
+                    <x-tomato-admin-tooltip text="{{__('Delete File')}}">
+                        <x-heroicon-s-trash class="w-6 h-6" />
+                    </x-tomato-admin-tooltip>
                 </x-tomato-admin-button>
             @endif
         </div>
@@ -87,7 +96,7 @@
             </div>
             @endif
         @elseif(count($folders) || count($files))
-            <div class="grid gap-1 md:grid-cols-3 sm:grid-cols-2 my-6">
+            <div class="grid gap-2 md:grid-cols-4 sm:grid-cols-2 my-6">
                 @foreach($folders as $folder)
                     <x-splade-form method="POST" action="{{route('admin.browser.index')}}" :default="[
                         'folder_path'=> $folder['path'],
@@ -96,7 +105,7 @@
                     ]">
                         <button
                             type="submit"
-                            class="bg-white flex flex-col items-center justify-center w-full p-4 font-medium text-center border rounded"
+                            class="bg-white dark:bg-zinc-800 dark:border-zinc-700 flex flex-col items-center justify-center w-full p-4 font-medium text-center border rounded"
                         >
                             <i
                                 class="item-center text-primary-500 bx bxs-folder bx-lg"
@@ -113,7 +122,7 @@
                     ]">
                         <button
                             type="submit"
-                            class="bg-white flex flex-col items-center justify-center w-full p-4 font-medium text-center border rounded"
+                            class="bg-white dark:bg-zinc-800 dark:border-zinc-700 flex flex-col items-center justify-center w-full p-4 font-medium text-center border rounded"
                         >
                             @if(
                                 isset($file['ex'] ) &&
