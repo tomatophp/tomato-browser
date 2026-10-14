@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web','splade', 'verified'])->name('admin.')->group(function () {
     Route::get('/admin/browser', [\TomatoPHP\TomatoBrowser\Http\Controllers\BrowserController::class, 'index'])->name('browser.index');
-    Route::post('/admin/browser', [\TomatoPHP\TomatoBrowser\Http\Controllers\BrowserController::class, 'index'])->name('browser.index');
+    Route::post('/admin/browser', [\TomatoPHP\TomatoBrowser\Http\Controllers\BrowserController::class, 'index'])->name('browser.index.post');
     Route::get('/admin/browser/upload/file',function (){
         return redirect()->route('admin.browser.index');
     })->name('browser.get');
